@@ -7,6 +7,7 @@ const Layout = () => {
             <header className={"bg-black"}>H</header>
             <Outlet />
             <footer>F</footer>
+
         </div>
     );
 };
