@@ -1,13 +1,18 @@
 import React from 'react';
-import Button from "../../components/button/Button.jsx";
+import TrailersSection from "../../components/trailersSection/TrailersSection.jsx";
+import PopularFilm from "../../components/popular/PopularFilm.jsx";
+import PopularPerson from "../../components/popularPerson/PopularPerson.jsx";
+import LatestNews from "../../components/latestNews/LatestNews.jsx";
+import MoviePage from "../moviePage/MoviePage.jsx";
 
 const HomePage = () => {
     return (
         <div>
-            <h1 className="text-3xl font-bold underline">
-                Hello world!
-            </h1>
-            <Button>login</Button>
+            <MoviePage/>
+            <TrailersSection/>
+            <PopularFilm/>
+            <PopularPerson/>
+            <LatestNews/>
         </div>
     );
 };

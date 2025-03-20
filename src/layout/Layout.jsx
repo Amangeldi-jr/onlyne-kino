@@ -1,12 +1,16 @@
-import React from 'react';
-import {Outlet} from "react-router-dom";
+import React from "react";
+import { Outlet } from "react-router-dom";
+import Header from "./header/Header";
+import Footer from "./footer/Footer";
+import HomePage from "../pages/home/HomePage.jsx";
 
 const Layout = () => {
     return (
         <div>
-            <header className={"bg-black"}>H</header>
+            <Header />
+            <HomePage/>
             <Outlet />
-            <footer>F</footer>
+            <Footer />
         </div>
     );
 };
