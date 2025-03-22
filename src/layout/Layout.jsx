@@ -10,7 +10,12 @@ const Layout = () => {
             <Header />
             <HomePage/>
             <Outlet />
+<<<<<<< HEAD
             <Footer />
+=======
+            <footer>F</footer>
+
+>>>>>>> 55d1594f55ea4fa1cd8e7f594554add3a58590f9
         </div>
     );
 };
