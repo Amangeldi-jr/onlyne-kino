@@ -23,7 +23,7 @@ const AfishaPage = () => {
 
     return (
         <>
-            <Header/>
+            <Header />
             <div style={{
                 width: "1920px",
                 backgroundColor: "#1a1d29",
@@ -37,9 +37,9 @@ const AfishaPage = () => {
             }}>
 
                 <main style={{ padding: "20px" }}>
-                    <div style={{display: "flex"}}>
-                        <h1 style={{fontWeight: 900, fontSize: "45px"}}>График премьер фильмов</h1>
-                        <div style={{display: "flex", justifyContent: "center", alignItems: "center", marginLeft: "530px"}}>
+                    <div style={{ display: "flex" }}>
+                        <h1 style={{ fontWeight: 900, fontSize: "45px" }}>График премьер фильмов</h1>
+                        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginLeft: "530px" }}>
                             <div>
                                 <select style={{
                                     width: "100px",
@@ -79,32 +79,52 @@ const AfishaPage = () => {
                         fontSize: "18px",
                         marginTop: "44px"
                     }}>Также как дальнейшее развитие различных форм деятельности, в своём классическом
-                        представлении,<br/> допускает внедрение первоочередных требований. Современные технологии достигли
-                        такого уровня, что <br/> внедрение современных методик предполагает независимые способы реализации
-                        стандартных подходов. <br/> Сторонники тоталитаризма в науке могут быть объявлены нарушающими
+                        представлении,<br /> допускает внедрение первоочередных требований. Современные технологии достигли
+                        такого уровня, что <br /> внедрение современных методик предполагает независимые способы реализации
+                        стандартных подходов. <br /> Сторонники тоталитаризма в науке могут быть объявлены нарушающими
                         общечеловеческие нормы этики и морали.</p>
 
-                    <div style={{display: "flex", flexWrap: "wrap", gap: "20px", marginTop: "20px", width: "1425px"}}>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "20px", marginTop: "20px", width: "1425px" }}>
                         {data?.results
                             .filter(movie => selectedGenre ? movie.genre_ids.includes(Number(selectedGenre)) : true)
                             .map(movie => (
-                                <div key={movie.id} style={{ width: "340px" }}>
+                                <div key={movie.id} style={{ width: "340px", position: "relative" }}>
                                     <img
                                         src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
                                         alt={movie.title}
                                         style={{ width: "100%", borderRadius: "8px" }}
                                     />
+                                    {/* Display the rating on top of the image */}
+                                    <div
+                                        style={{
+                                            position: "absolute",
+                                            top: "10px",
+                                            left: "10px",
+                                            backgroundColor: "green",
+                                            color: "white",
+                                            width: "62px",
+                                            height: "33px",
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            borderRadius: "5px",
+                                            fontWeight: "bold",
+                                        }}
+                                    >
+                                        {movie.vote_average}
+                                    </div>
                                     <h3>{movie.title}</h3>
                                     <p>{new Date(movie.release_date).toLocaleDateString("ru-RU")}</p>
-                                    <p style={{color: "yellow"}}>{movie.genre_ids.map(id => genreMap[id]).filter(Boolean).join(", ")}</p>
+                                    <p style={{ color: "yellow" }}>{movie.genre_ids.map(id => genreMap[id]).filter(Boolean).join(", ")}</p>
                                 </div>
                             ))}
                     </div>
                 </main>
             </div>
-            <Footer/>
+            <Footer />
         </>
     );
 };
 
 export default AfishaPage;
+

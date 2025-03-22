@@ -126,20 +126,7 @@ const MoviePage = () => {
                     </div>
                 ))}
             </div>
-            <button
-                style={{
-                    marginTop: "20px",
-                    padding: "10px 20px",
-                    fontSize: "16px",
-                    marginBottom: "10px",
-                    borderRadius: "10px",
-                    color: "white",
-                    backgroundColor: "#1a1d29",
-                    border: "1px solid white",
-                }}
-            >
-                Все новинки
-            </button>
+
         </div>
     );
 };

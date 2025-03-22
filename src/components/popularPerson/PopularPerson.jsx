@@ -19,10 +19,10 @@ const PopularPersons = () => {
     const isTablet = windowWidth >= 768 && windowWidth < 1280;
 
     return (
-        <div style={{ width: "100%", maxWidth: "1920px", margin: "auto", backgroundColor: "#1a1d29", color: "white", padding: "20px" }}>
-            <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: "center",  marginLeft: isMobile ? "20px" : "245px" }}>
+        <div style={{ width: "1920px", margin: "auto", backgroundColor: "#1a1d29", color: "white", padding: "20px" }}>
+            <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: "center", marginLeft: isMobile ? "20px" : "245px" }}>
                 <h2 style={{ fontWeight: 900, fontSize: isMobile ? "30px" : "45px" }}>Популярные персоны</h2>
-                <div style={{ display: "flex", marginTop: "10px", gap: "30px", fontWeight: 700, fontSize: "18px", marginLeft: "625px" }}>
+                <div style={{ display: "flex", marginTop: "10px", gap: "30px", fontWeight: 700, fontSize: "18px", marginLeft: isMobile ? "0px" : "630px" }}>
                     {["year", "month", "week"].map((time) => (
                         <p
                             key={time}
@@ -41,7 +41,9 @@ const PopularPersons = () => {
                         <div style={{ position: "absolute", bottom: "10px", left: "10px", backgroundColor: "rgba(0, 0, 0, 0.6)", padding: "10px", borderRadius: "5px" }}>
                             <p style={{ fontSize: "18px", fontWeight: "bold", color: "white" }}>{person.name} ({person.original_name})</p>
                             <p style={{ color: "#FFD700" }}>{index + 1}-е место</p>
-                            <p style={{ fontSize: "14px", color: "#ccc" }}>{person.birthday ? `Год рождения: ${person.birthday.split("-")[0]}` : "Год рождения: Неизвестно"}</p>
+                            <p style={{ fontSize: "14px", color: "#ccc" }}>
+                                {person.birthday ? `Год рождения: ${person.birthday.split("-")[0]}` : "Год рождения: Неизвестно"}
+                            </p>
                         </div>
                     </div>
                 ))}
@@ -50,7 +52,9 @@ const PopularPersons = () => {
                         <div key={person.id} style={{ marginBottom: "10px", display: "flex", justifyContent: "space-between" }}>
                             <div>
                                 <p style={{ fontSize: "18px", fontWeight: "bold" }}>{person.name} ({person.original_name})</p>
-                                <p style={{ fontSize: "14px", color: "#ccc" }}>{person.birthday ? `Год рождения: ${person.birthday.split("-")[0]}` : "Год рождения: Неизвестно"}</p>
+                                <p style={{ fontSize: "14px", color: "#ccc" }}>
+                                    {person.birthday ? `Год рождения: ${person.birthday.split("-")[0]}` : "Год рождения: Неизвестно"}
+                                </p>
                             </div>
                             <p style={{ color: "#FFD700", alignSelf: "center" }}>{index + 3}-е место</p>
                         </div>

@@ -7,7 +7,7 @@ import { useGetAllMoviesQuery } from "../../redux/api/kinApi.js";
 import B from "/src/assets/b.svg";
 
 const PopularFilms = () => {
-    const [selectedYear, setSelectedYear] = useState(2019);
+    const [selectedYear, setSelectedYear] = useState(null);
     const { data, error, isLoading } = useGetAllMoviesQuery({ year: selectedYear });
 
     if (isLoading) return <p style={{ color: "white", textAlign: "center" }}>Загрузка...</p>;
@@ -38,7 +38,6 @@ const PopularFilms = () => {
                     </div>
                 </div>
 
-
                 <Swiper
                     pagination={{
                         clickable: true,
@@ -68,9 +67,8 @@ const PopularFilms = () => {
                                     alt={movie.title}
                                     style={{ width: "100%", height: "85%", objectFit: "cover" }}
                                 />
-
-                                        <div
-                                        style={{
+                                <div
+                                    style={{
                                         position: "absolute",
                                         top: "10px",
                                         right: "10px",
@@ -82,43 +80,43 @@ const PopularFilms = () => {
                                     }}
                                 >
                                     {movie.vote_average.toFixed(1)}
-                            </div>
+                                </div>
 
-                            <div style={{ padding: "10px", background: "#1a1d29", height: "15%" }}>
-                                <h3 style={{ color: "white", fontSize: "18px", marginBottom: "5px" }}>{movie.title}</h3>
-                                <p style={{ color: "yellow", fontSize: "14px" }}>
-                                    {movie.genre_ids.map((id) => genreMap[id]).join(", ")}
-                                </p>
+                                <div style={{ padding: "10px", background: "#1a1d29", height: "15%" }}>
+                                    <h3 style={{ color: "white", fontSize: "18px", marginBottom: "5px" }}>{movie.title}</h3>
+                                    <p style={{ color: "yellow", fontSize: "14px" }}>
+                                        {movie.genre_ids.map((id) => genreMap[id]).join(", ")}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
                         </SwiperSlide>
-                        ))}
-                        </Swiper>
-                        </div>
-                        </div>
-                        );
-                    };
+                    ))}
+                </Swiper>
+            </div>
+        </div>
+    );
+};
 
-                    const genreMap = {
-                    28: "Боевик",
-                    12: "Приключения",
-                    16: "Мультфильм",
-                    35: "Комедия",
-                    80: "Криминал",
-                    99: "Документальный",
-                    18: "Драма",
-                    10751: "Семейный",
-                    14: "Фэнтези",
-                    36: "Исторический",
-                    27: "Ужасы",
-                    10402: "Музыка",
-                    9648: "Детектив",
-                    10749: "Мелодрама",
-                    878: "Фантастика",
-                    10770: "Телевизионный фильм",
-                    53: "Триллер",
-                    10752: "Военный",
-                    37: "Вестерн",
-                };
+const genreMap = {
+    28: "Боевик",
+    12: "Приключения",
+    16: "Мультфильм",
+    35: "Комедия",
+    80: "Криминал",
+    99: "Документальный",
+    18: "Драма",
+    10751: "Семейный",
+    14: "Фэнтези",
+    36: "Исторический",
+    27: "Ужасы",
+    10402: "Музыка",
+    9648: "Детектив",
+    10749: "Мелодрама",
+    878: "Фантастика",
+    10770: "Телевизионный фильм",
+    53: "Триллер",
+    10752: "Военный",
+    37: "Вестерн",
+};
 
-                    export default PopularFilms;
+export default PopularFilms;

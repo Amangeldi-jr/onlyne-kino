@@ -2,7 +2,6 @@ import React from 'react';
 import TrailersSection from "../../components/trailersSection/TrailersSection.jsx";
 import PopularFilm from "../../components/popular/PopularFilm.jsx";
 import PopularPerson from "../../components/popularPerson/PopularPerson.jsx";
-import LatestNews from "../../components/latestNews/LatestNews.jsx";
 import MoviePage from "../moviePage/MoviePage.jsx";
 
 const HomePage = () => {
@@ -12,7 +11,6 @@ const HomePage = () => {
             <TrailersSection/>
             <PopularFilm/>
             <PopularPerson/>
-            <LatestNews/>
         </div>
     );
 };

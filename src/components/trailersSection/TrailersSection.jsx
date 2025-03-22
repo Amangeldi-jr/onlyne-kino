@@ -18,7 +18,7 @@ const TrailersSection = () => {
 
     useEffect(() => {
         if (data?.results?.length > 0) {
-            setMainMovie(data.results[0]); // Баштапкы чоң карточка
+            setMainMovie(data.results[0]);
         }
     }, [data]);
 
@@ -59,16 +59,12 @@ const TrailersSection = () => {
     if (error) return <p className="text-center text-red-500">Ошибка: {error.message}</p>;
 
     return (
-        <div style={{ width: "100%", maxWidth: "1920px", margin: "0 auto", backgroundColor: "#1a1d29", color: "white", padding: "20px 245px" }}>
+        <div style={{ width: "1920px", margin: "0 auto", backgroundColor: "#1a1d29", color: "white", padding: "20px 245px" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <h2 style={{ fontWeight: 900, fontSize: "45px" }}>Новые трейлеры</h2>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                    <h3 style={{ fontWeight: 700, fontSize: "20px" }}>Все трейлеры</h3>
-                    <img src={Strelka} alt="Стрелка" style={{ marginLeft: "10px" }} />
-                </div>
+
             </div>
 
-            {/* Чоң карточка (Трейлер ойнотулган же сүрөт) */}
             {mainMovie && (
                 <div style={{ marginTop: "20px", position: "relative", textAlign: "center" }}>
                     {isPlaying && trailerKey ? (
@@ -111,12 +107,10 @@ const TrailersSection = () => {
                             )}
                         </>
                     )}
-                    {/* Фильмдин аты жана иконкалар */}
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "10px", padding: "0 10px" }}>
                         <h3 style={{ fontSize: "24px", fontWeight: "bold" }}>
                             {mainMovie.title}
                         </h3>
-                        {/* Соц. тармак иконкалары */}
                         <div style={{ display: "flex", gap: "10px" }}>
                             <FaVk size={22} color="#fff" />
                             <FaInstagram size={22} color="#fff" />
@@ -126,7 +120,6 @@ const TrailersSection = () => {
                         </div>
                     </div>
 
-                    {/* Лайк жана Дизлайк */}
                     <div style={{ display: "flex", alignItems: "center", gap: "15px", marginTop: "10px", justifyContent: "center" }}>
                         <AiFillLike
                             size={26}
@@ -146,11 +139,10 @@ const TrailersSection = () => {
                 </div>
             )}
 
-            {/* Кичинекей карточкалар */}
             <div style={{ display: "flex", gap: "20px", overflowX: "auto", marginTop: "20px" }}>
                 {data?.results?.map((movie) => (
                     <div key={movie.id} style={{ minWidth: "250px", textAlign: "center", position: "relative", cursor: "pointer" }}
-                         onClick={() => { setMainMovie(movie); setIsPlaying(false); }}>  {/* Чоң карточканы өзгөртүү */}
+                         onClick={() => { setMainMovie(movie); setIsPlaying(false); }}>
                         <img
                             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                             alt={movie.title}

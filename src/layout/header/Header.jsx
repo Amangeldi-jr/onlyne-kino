@@ -1,212 +1,168 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaVk, FaInstagram, FaFacebookF, FaTwitter } from "react-icons/fa";
 import { IoIosSearch } from "react-icons/io";
-import Img from "../../assets/img.png";
+import Ok from "../../assets/ok.png";
 import Button from "../../components/button/Button.jsx";
 import LoginModal from "./LoginModal.jsx";
+import AdvancedSearch from "./AdvancedSearch.jsx";
 
 const Header = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [userInitial, setUserInitial] = useState(null);
-    const [isSearchOpen, setIsSearchOpen] = useState(false);
-    const [searchQuery, setSearchQuery] = useState("");
-    const [searchResults, setSearchResults] = useState([]);
+    const [isAdvancedSearchOpen, setIsAdvancedSearchOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const storedUserInitial = localStorage.getItem("userInitial");
+        const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
+
+        if (storedIsLoggedIn === "true" && storedUserInitial) {
+            setUserInitial(storedUserInitial);
+            setIsLoggedIn(true);
+        }
+    }, []);
 
     const handleRegister = (name) => {
-        setUserInitial(name.charAt(0).toUpperCase());
+        const initial = name.charAt(0).toUpperCase();
+        setUserInitial(initial);
+        setIsLoggedIn(true);
+        localStorage.setItem("userInitial", initial);
+        localStorage.setItem("isLoggedIn", "true");
+        setIsModalOpen(false);
     };
 
-    const handleSearch = () => {
-        if (searchQuery) {
-            const formattedQuery = searchQuery.toLowerCase();
-            let result = [];
+    const handleLogout = () => {
+        setUserInitial(null);
+        setIsLoggedIn(false);
+        localStorage.removeItem("userInitial");
+        localStorage.setItem("isLoggedIn", "false");
+    };
 
-            if (formattedQuery.includes("фильм") || formattedQuery.includes("movie")) {
-                result.push("Фильмдер");
-            }
-            if (formattedQuery.includes("актёр") || formattedQuery.includes("actor")) {
-                result.push("Адамдар");
-            }
+    const handleVkClick = () => {
+        window.open("https://vk.com/id1037041579", "_blank");
+    };
 
-            setSearchResults(result);
-        }
+    const handleFacebookClick = () => {
+        window.open("https://www.facebook.com/share/155x3Ssp5v/", "_blank");
+    };
+
+    const handleInstagramClick = () => {
+        window.open("https://www.instagram.com/__kara07__?igsh=cGM1czhkejF0ZnZm", "_blank");
     };
 
     return (
         <>
-            <div
-                style={{
-                    width: "100%",
-                    height: "90px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    padding: "10px 5%",
-                    backgroundColor: "#1a1d29",
-                    color: "white",
-                }}
-            >
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                    <img src={Img} alt="Logo" width={100} height={25} />
-                    <div style={{ display: "flex", gap: 15, marginTop: 5 }}>
-                        {[FaVk, FaInstagram, FaFacebookF, FaTwitter].map((Icon, index) => (
-                            <Icon
-                                key={index}
-                                style={{
-                                    color: "#555",
-                                    fontSize: "15px",
-                                    transition: "color 0.3s ease-in-out",
-                                    cursor: "pointer",
-                                }}
-                                onMouseOver={(e) => (e.target.style.color = "#fff")}
-                                onMouseOut={(e) => (e.target.style.color = "#555")}
-                            />
+            <header style={styles.header}>
+                <div style={styles.logoSection}>
+                    <img src={Ok} alt="Logo" width={100} height={100} />
+                    <div style={styles.socialIcons}>
+                        <FaVk onClick={handleVkClick} style={styles.icon} />
+                        <FaFacebookF onClick={handleFacebookClick} style={styles.icon} />
+                        <FaInstagram onClick={handleInstagramClick} style={styles.icon} />
+                        {[FaTwitter].map((Icon, index) => (
+                            <Icon key={index} style={styles.icon} />
                         ))}
                     </div>
                 </div>
 
-                <nav style={{ display: "flex", gap: 30, fontSize: "14px", textAlign: "center" }}>
-                    {[
-                        { name: "Афиша", path: "/premieres" },
-                        { name: "Медиа", path: "/media" },
-                        { name: "Фильмы", path: "/movies" },
-                        { name: "Актёры", path: "/actors" },
-                        { name: "Новости", path: "/news" },
-                        { name: "Подборки", path: "/collections" },
-                        { name: "Категории", path: "/categories" },
-                    ].map((item, index) => (
-                        <Link
-                            key={index}
-                            to={item.path}
-                            style={{ textDecoration: "none", color: "white", cursor: "pointer" }}
-                        >
-                            <h3 style={{ margin: "5px 0" }}>{item.name}</h3>
+                <nav style={styles.nav}>
+                    {[{ name: "Афиша", path: "/premieres" }, { name: "Фильмы", path: "/movies" }, { name: "Актёры", path: "/actors" }, { name: "Подборки", path: "/collections" }].map((item, index) => (
+                        <Link key={index} to={item.path} style={styles.link}>
+                            <h3>{item.name}</h3>
                         </Link>
                     ))}
                 </nav>
 
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                    <button
-                        style={{
-                            width: "40px",
-                            height: "40px",
-                            backgroundColor: "white",
-                            color: "blue",
-                            borderRadius: "10px",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            cursor: "pointer",
-                        }}
-                        onClick={() => setIsSearchOpen(true)}
-                    >
+                <div style={styles.rightSection}>
+                    <button style={styles.searchButton} onClick={() => setIsAdvancedSearchOpen(true)}>
                         <IoIosSearch size={18} />
                     </button>
 
-                    {userInitial ? (
-                        <div
-                            style={{
-                                width: "40px",
-                                height: "40px",
-                                backgroundColor: "#ffeb3b",
-                                color: "black",
-                                fontWeight: "bold",
-                                fontSize: "18px",
-                                borderRadius: "50%",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                            }}
-                        >
-                            {userInitial}
-                        </div>
+                    {isLoggedIn ? (
+                        <Link to="/profile" style={styles.profileLink}>
+                            <div style={styles.profileIcon}>{userInitial}</div>
+                        </Link>
                     ) : (
                         <Button onClick={() => setIsModalOpen(true)}>Войти</Button>
                     )}
+
+                    {isLoggedIn && <Button onClick={handleLogout}>Выход</Button>}
                 </div>
-            </div>
+            </header>
 
-            {isSearchOpen && (
-                <div
-                    style={{
-                        position: "fixed",
-                        top: "0",
-                        left: "0",
-                        width: "100%",
-                        height: "100%",
-                        backgroundColor: "rgba(0, 0, 0, 0.5)",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        zIndex: "1000",
-                    }}
-                    onClick={() => setIsSearchOpen(false)}
-                >
-                    <div
-                        style={{
-                            backgroundColor: "white",
-                            padding: "20px",
-                            borderRadius: "8px",
-                            width: "400px",
-                            display: "flex",
-                            flexDirection: "column",
-                        }}
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <button
-                            onClick={() => setIsSearchOpen(false)}
-                            style={{
-                                backgroundColor: "transparent",
-                                border: "none",
-                                fontSize: "20px",
-                                color: "#555",
-                                alignSelf: "flex-end",
-                            }}
-                        >
-                            &times;
-                        </button>
-                        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                            <input
-                                type="text"
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                placeholder="Search"
-                                style={{
-                                    width: "100%",
-                                    padding: "10px",
-                                    fontSize: "16px",
-                                    borderRadius: "5px",
-                                    border: "1px solid #ddd",
-                                }}
-                            />
-                            <IoIosSearch size={18} style={{ color: "#555" }} onClick={handleSearch} />
-                        </div>
-
-                        {searchResults.length > 0 && (
-                            <div
-                                style={{
-                                    marginTop: "20px",
-                                    padding: "10px",
-                                    backgroundColor: "#f0f0f0",
-                                    borderRadius: "5px",
-                                }}
-                            >
-                                <h4>Натыйжалар:</h4>
-                                {searchResults.map((result, index) => (
-                                    <p key={index} style={{ margin: "5px 0" }}>
-                                        {result}
-                                    </p>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-                </div>
-            )}
-
+            {isAdvancedSearchOpen && <AdvancedSearch onClose={() => setIsAdvancedSearchOpen(false)} />}
             {isModalOpen && <LoginModal onClose={() => setIsModalOpen(false)} onRegister={handleRegister} />}
         </>
     );
+};
+
+const styles = {
+    header: {
+        width: "100%",
+        height: "150px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "10px 5%",
+        backgroundColor: "#1a1d29",
+        color: "white",
+    },
+    logoSection: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+    },
+    socialIcons: {
+        display: "flex",
+        gap: 15,
+        marginTop: 5,
+    },
+    icon: {
+        color: "#555",
+        fontSize: "15px",
+        cursor: "pointer",
+    },
+    nav: {
+        display: "flex",
+        gap: 30,
+    },
+    link: {
+        textDecoration: "none",
+        color: "white",
+    },
+    rightSection: {
+        display: "flex",
+        alignItems: "center",
+        gap: 10,
+    },
+    searchButton: {
+        width: "40px",
+        height: "40px",
+        backgroundColor: "white",
+        color: "blue",
+        borderRadius: "10px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        cursor: "pointer",
+    },
+    profileLink: {
+        textDecoration: "none",
+    },
+    profileIcon: {
+        width: "40px",
+        height: "40px",
+        backgroundColor: "#ffeb3b",
+        color: "black",
+        fontWeight: "bold",
+        fontSize: "18px",
+        borderRadius: "50%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        cursor: "pointer",
+    },
 };
 
 export default Header;

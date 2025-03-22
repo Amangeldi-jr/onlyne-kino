@@ -1,6 +1,7 @@
 import React from 'react';
 import Img2 from "../../assets/img_1.png";
 import { FaVk, FaInstagram, FaFacebookF, FaTwitter, FaYoutube } from "react-icons/fa";
+import {Link} from "react-router-dom";
 
 const Footer = () => {
     return (
@@ -73,8 +74,8 @@ const Footer = () => {
                     </label>
                 </div>
             </div>
-            <div style={{ width: "100%", maxWidth: "1428px", textAlign: "center", marginTop: "40px" }}>
-                <div style={{ display: "flex", gap: 30, justifyContent: "center", flexWrap: "wrap" }}>
+            <div style={{width: "100%", maxWidth: "1428px", textAlign: "center", marginTop: "40px"}}>
+                <div style={{display: "flex", gap: 30, justifyContent: "center", flexWrap: "wrap"}}>
                     {[FaVk, FaInstagram, FaFacebookF, FaTwitter, FaYoutube].map((Icon, index) => (
                         <Icon key={index} style={{
                             color: "#555",
@@ -82,26 +83,16 @@ const Footer = () => {
                             transition: "color 0.3s ease-in-out"
                         }}
                               onMouseOver={(e) => e.target.style.color = "#fff"}
-                              onMouseOut={(e) => e.target.style.color = "#555"} />
+                              onMouseOut={(e) => e.target.style.color = "#555"}/>
                     ))}
                 </div>
-                <nav style={{
-                    display: "flex",
-                    gap: 20,
-                    marginTop: "34px",
-                    fontSize: "14px",
-                    flexWrap: "wrap",
-                    justifyContent: "center",
-                    color: "white"
-                }}>
-                    {["Афиша", "Новости", "Персоны", "Рейтинги", "Рецензии", "Каталог фильмов"].map((item, index) => (
-                        <h3 key={index} style={{ margin: "5px 0" }}>{item}</h3>
-                    ))}
-                </nav>
+
+
                 <div style={{color: "#8f8f8d", fontWeight: 400, fontSize: "15px", marginTop: "41px"}}>
                     <p>2020 © Kinoarea. Все права защищены</p>
                     <button type="button" className="btn btn-link"
-                            style={{fontSize: "18px", textAlign: "center", color: "#8f8f8d"}}>политики конфиденциальности
+                            style={{fontSize: "18px", textAlign: "center", color: "#8f8f8d"}}>политики
+                        конфиденциальности
                     </button>
                 </div>
             </div>

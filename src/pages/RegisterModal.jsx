@@ -24,13 +24,11 @@ const RegisterModal = ({ onClose, onRegister }) => {
             return;
         }
 
-        // Регистрация успешна, обновляем состояние и закрываем модал
         console.log("📥 Тазаланган маалымат:", formData);
 
-        // Передаем первую букву имени в Header
-        onRegister(formData.firstName);
+        // Атты толук аты менен кошуу
+        onRegister(formData.firstName + " " + formData.lastName);
 
-        // Маалыматтарды тазалоо
         setFormData({
             firstName: "",
             lastName: "",
@@ -40,7 +38,7 @@ const RegisterModal = ({ onClose, onRegister }) => {
             contact: ""
         });
 
-        onClose(); // Модалды жабуу
+        onClose();
     };
 
     return (
@@ -65,7 +63,7 @@ const RegisterModal = ({ onClose, onRegister }) => {
     );
 };
 
-/* ✅ Стили */
+
 const overlayStyle = {
     position: "fixed",
     top: 0,

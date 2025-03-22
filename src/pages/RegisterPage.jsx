@@ -1,51 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
 
-const RegisterPage = () => {
+const RegisterPage = ({ onRegister }) => {
+    const [formData, setFormData] = useState({
+        firstName: "",
+        lastName: "",
+        username: "",
+        password: "",
+        confirmPassword: "",
+        contact: ""
+    });
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if (formData.password !== formData.confirmPassword) {
+            alert("Пароли не совпадают!");
+            return;
+        }
+
+        const firstLetter = formData.firstName.charAt(0).toUpperCase();
+        localStorage.setItem("userInitial", firstLetter); // Баш тамганы сактайбыз
+
+        onRegister(formData.firstName);
+        alert("Вы успешно зарегистрированы!");
+
+        setFormData({
+            firstName: "",
+            lastName: "",
+            username: "",
+            password: "",
+            confirmPassword: "",
+            contact: ""
+        });
+    };
+
     return (
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", backgroundColor: "#121625" }}>
-            <div style={{
-                backgroundColor: "white",
-                padding: "20px",
-                borderRadius: "8px",
-                width: "400px",
-                textAlign: "center"
-            }}>
-                <h2 style={{ color: "#121625", marginBottom: "20px" }}>Зарегистрироваться</h2>
-
-                <input type="text" placeholder="Имя" style={inputStyle} />
-                <input type="text" placeholder="Фамилия" style={inputStyle} />
-                <input type="text" placeholder="Придумайте логин" style={inputStyle} />
-                <input type="password" placeholder="Придумайте пароль" style={inputStyle} />
-                <input type="password" placeholder="Повторите пароль" style={inputStyle} />
-                <input type="text" placeholder="Номер телефона же e-mail" style={inputStyle} />
-
-                <button style={registerButtonStyle}>Зарегистрироваться</button>
-            </div>
+        <div>
+            <h2>Зарегистрироваться</h2>
+            <form onSubmit={handleSubmit}>
+                <input type="text" name="firstName" placeholder="Имя" value={formData.firstName} onChange={handleChange} />
+                <input type="text" name="lastName" placeholder="Фамилия" value={formData.lastName} onChange={handleChange} />
+                <input type="text" name="username" placeholder="Придумайте логин" value={formData.username} onChange={handleChange} />
+                <input type="password" name="password" placeholder="Придумайте пароль" value={formData.password} onChange={handleChange} />
+                <input type="password" name="confirmPassword" placeholder="Повторите пароль" value={formData.confirmPassword} onChange={handleChange} />
+                <input type="text" name="contact" placeholder="Номер телефона или e-mail" value={formData.contact} onChange={handleChange} />
+                <button type="submit">Зарегистрироваться</button>
+            </form>
         </div>
     );
-};
-
-const inputStyle = {
-    width: "100%",
-    padding: "10px",
-    marginBottom: "10px",
-    borderRadius: "5px",
-    border: "1px solid #555",
-    backgroundColor: "#f1f1f1",
-    color: "black",
-    fontSize: "16px"
-};
-
-const registerButtonStyle = {
-    backgroundColor: "#ffeb3b",
-    color: "black",
-    padding: "10px",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-    width: "100%",
-    fontWeight: "bold",
-    fontSize: "16px"
 };
 
 export default RegisterPage;
